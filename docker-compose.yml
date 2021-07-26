@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  server:
+    image: ids17/node-api-alpine
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    networks:
+      - mern
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - docker-volume:/data/db
+    networks:
+      - mern
+
+volumes:
+  docker-volume:
+    driver: local
+
+networks:
+  mern:
+    driver: bridge
